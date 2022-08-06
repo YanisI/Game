@@ -1,0 +1,35 @@
+/*@import "./settings";
+
+@import "./components/Navbar";
+@import "./components/Sidebar";
+@import "./components/Sub";*/
+
+@import "./pages/Home";
+@import "./pages/Room";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+::-webkit-scrollbar {
+    width: 0.5vw;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #333333; 
+    }
+
+
+    ::-webkit-scrollbar-corner  {
+        display: none;  
+    }
+
+.display-linebreak {
+    white-space: pre-line;
+}

@@ -1,0 +1,54 @@
+.home-page {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(45deg, #d62020, #2938c2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .home-container {
+        display: flex;
+        flex-direction: column;
+
+        height: 70%;
+        .title {
+            padding: 40px;
+            font-size: 5rem;
+            color: linear-gradient(45deg, #d62020, #2938c2);
+        }
+        .rooms {
+            display: flex;
+            flex-direction: column;
+
+            input{
+                border-radius: 20px;
+                padding: 6px 12px;
+                margin: 10px 0px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                margin: 10px 0px;
+                border-radius: 20px;
+                color: white;
+                font-size: 18px;
+                
+            }
+            .join{
+                background-color: #5cb85c;
+                &:hover{
+                    background-color: #21bb21;
+                }
+            }
+
+            .create{
+                background-color: #5bc0de;
+                &:hover{
+                    background-color: #5b89de;
+                }
+            }
+        }
+    }
+    
+}
