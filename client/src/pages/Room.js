@@ -6,7 +6,7 @@ const Room = () => {
     return (
         <div className='page-room'>
             <div className="cont">
-                <div className="image">
+                <div className="left">
                     PROFILE PICTURE
                     
                     <Chat />
@@ -14,7 +14,9 @@ const Room = () => {
                 <div className="jeu">
                     bbb
                 </div>
-
+                <div className="players">
+                    aaaa
+                </div>
             </div>
         </div>
     )
