@@ -8,6 +8,7 @@
 @import "./pages/Room";
 
 @import "./components/Chat";
+@import "./components/Avatar";
 
 
 *{
@@ -15,7 +16,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 
 
 ::-webkit-scrollbar {

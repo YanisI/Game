@@ -1,23 +1,35 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useContext } from "react"
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import Avatar from "../components/Avatar";
 
 const Home = () => {
 
   const { socket, dispatch } = useContext(AppContext);
   const [username, setUsername] = useState("")
   const [room, setRoom] = useState("");
+  const [seed, setSeed] = useState(1000);
+  const [sprite, setSprite] = useState("avataaars");
 
   let navigate = useNavigate();
 
   const joinRoom = async () => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+      let data = {
+        room: room,
+        player: [{
+          name: username,
+          id: socket.id
+        }]
+      }
+      socket.emit("join_room", data);
       await dispatch({
         type: "JOIN",
         payload: {
           username: username,
-          room: room
+          room: room,
+          sprite: sprite,
+          seed: seed
         }
       });
       navigate(`/Room/${room}`);
@@ -59,6 +71,9 @@ const Home = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+          <div>
+            <Avatar seed={seed} setSeed={setSeed} sprite={sprite} setSprite={setSprite} />
+          </div>
           <input
             type="text"
             placeholder="Enter the room name (ex: abcdef26gh)"

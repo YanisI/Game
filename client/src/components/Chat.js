@@ -10,19 +10,18 @@ const Chat = () => {
 
 
     const [currrentMessage, setCurrentMessage] = useState("");
-    const [messageList, setMessageList] = useState([])
-
-    useEffect(() => {
-        console.log("USERNAME : " + username)
-    }, [])
+    const [messageList, setMessageList] = useState([]);
 
     useEffect(() => {
         socket.on("receive_message", (data) => {
-            console.log(data)
-            setMessageList((list) => [...list, data]);
-            console.log(messageList);
+            console.log("on recoit")
+            console.log(data.author)
+            let tmp = [...messageList, data];
+            setMessageList(tmp);
         })
-    }, [])
+
+    }, [socket, messageList])
+
 
 
     const sendMessage = async () => {
@@ -33,12 +32,15 @@ const Chat = () => {
                 message: currrentMessage,
                 time: moment().format('LT')
             }
-            //new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+
             await socket.emit("send_message", messageData);
-            setMessageList((list) => [...list, messageData]);
+            let tmp = [...messageList, messageData];
+            setMessageList(tmp);
             setCurrentMessage("");
         }
     }
+
+
     return (
         <div className="chat-container">
             <div className="chat-header">
@@ -52,12 +54,15 @@ const Chat = () => {
                                 key={i}
                                 className={username === a.author ? " message you" : "message other"}
                             >
-                                <div className="message-box">
-                                    <p>{a.message}</p>
-                                </div>
+
                                 <div className="message-info">
                                     <span> <span className='author'>{a.author}</span>  - <span className='time'>{a.time}</span> </span>
                                 </div>
+
+                                <div className="message-box">
+                                    <p>{a.message}</p>
+                                </div>
+
                             </div>)
                     })}
                 </ScrollToBottom>

@@ -1,0 +1,77 @@
+.avatar {
+    width: 100%;
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        .button {
+
+            color: white;
+            background-color: steelblue;
+            border: 2px solid white;
+
+            width: fit-content;
+            padding: 5px 10px;
+            margin: 2px 5px;
+            font-size: 14px;
+            box-shadow: 2px 3px 5px rgb(102, 101, 101);
+            border-radius: 15px;
+            transition: 0.2s;
+
+
+            &:hover {
+                cursor: pointer;
+                color: steelblue;
+                background-color: white;
+                border: 2px solid steelblue;
+            }
+
+        }
+
+        .active {
+            color: steelblue;
+            background-color: white;
+            border: 2px solid steelblue;
+        }
+    }
+
+    .wrapper {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+
+        .random {
+            position: absolute;
+            top: 0%;
+            left: 85%;
+
+            .randomSVG {
+                width: 40px;
+                height: 40px;
+            }
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.5;
+            }
+        }
+
+        .avatar-picture {
+            width: 150px;
+        }
+
+        .side {
+            font-size: 50px;
+            color: white;
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.5;
+            }
+        }
+    }
+}

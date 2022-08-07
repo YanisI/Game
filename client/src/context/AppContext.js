@@ -7,7 +7,9 @@ const initialState = {
     socket: socket,
     username: "",
     room: "",
-    host: false
+    host: false,
+    sprite: "avataaars",
+    seed: 1000
 };
 
 
@@ -16,11 +18,20 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "CREATE":
             return {
-                ...state, username: action.payload.username, room : action.payload.room, host: true
+                ...state, 
+                username: action.payload.username, 
+                room : action.payload.room, 
+                host: true, 
+                sprit : action.payload.sprite, 
+                seed : action.payload.seed
             }
         case "JOIN":
             return {
-                ...state, username: action.payload.username, room : action.payload.room
+                ...state, 
+                username: action.payload.username, 
+                room : action.payload.room, 
+                sprite : action.payload.sprite, 
+                seed : action.payload.seed
             }
         default: return state;
     }
@@ -41,6 +52,8 @@ export const AppProvider = (props) => {
                 room: state.room,
                 host: state.host,
                 socket: state.socket,
+                sprite: state.sprite,
+                seed: state.seed,
                 dispatch
             }}>
             {props.children}
