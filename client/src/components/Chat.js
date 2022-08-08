@@ -12,6 +12,8 @@ const Chat = () => {
     const [currrentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
 
+
+
     useEffect(() => {
         socket.on("receive_message", (data) => {
             console.log("on recoit")
@@ -29,6 +31,7 @@ const Chat = () => {
             const messageData = {
                 room: room,
                 author: username,
+                id : socket.id,
                 message: currrentMessage,
                 time: moment().format('LT')
             }
@@ -49,10 +52,11 @@ const Chat = () => {
             <div className="chat-body">
                 <ScrollToBottom className='chat-body-container'>
                     {messageList.map((a, i) => {
+                        console.log(a)
                         return (
                             <div
                                 key={i}
-                                className={username === a.author ? " message you" : "message other"}
+                                className={socket.id === a.id ? " message you" : "message other"}
                             >
 
                                 <div className="message-info">

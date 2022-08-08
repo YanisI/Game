@@ -1,0 +1,38 @@
+.player-list-container{
+    .list {
+        list-style: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 70vh;
+        margin: 0px 30px;
+        .cont{ 
+            text-decoration: none;
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+
+            .avatar-picture {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+            }
+            .username{
+                color: white;
+                font-size: 16px;
+            }
+            .crown {
+                position: absolute;
+                top: -10px;
+                left: 68px;
+                .crownSVG {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+
+        }
+    }
+
+}

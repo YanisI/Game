@@ -3,16 +3,43 @@
     height: 100vh;
     background: linear-gradient(45deg, #d62020, #2938c2);
     display: flex;
-    padding: 100px 150px;
-    .cont{
+    padding: 100px 100px;
+
+    .cont {
         width: 100%;
         display: flex;
         justify-content: space-between;
 
-        .left{
+        .left {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            .myAvatar {
+                position: relative;
+                display: flex;
+                align-items: center;
+
+                .avatar-picture {
+                    width: 100px;
+                    height: 100px;
+                    margin-right: 10px;
+                }
+                .username{
+                    color: white;
+                    font-size: 22px;
+                }
+                .crown {
+                    position: absolute;
+                    top: 0px;
+                    left: 120px;
+                    .crownSVG {
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+
+            }
         }
     }
 

@@ -19,7 +19,10 @@ const Home = () => {
         room: room,
         player: [{
           name: username,
-          id: socket.id
+          id: socket.id,
+          sprite: sprite,
+          seed: seed,
+          host : false
         }]
       }
       socket.emit("join_room", data);
@@ -29,7 +32,8 @@ const Home = () => {
           username: username,
           room: room,
           sprite: sprite,
-          seed: seed
+          seed: seed,
+          host: false
         }
       });
       navigate(`/Room/${room}`);
@@ -43,7 +47,9 @@ const Home = () => {
         room: Math.random().toString(36).slice(2, 12),
         player: [{
           name: username,
-          id: socket.id
+          id: socket.id,
+          sprite: sprite,
+          seed: seed
         }]
       }
       console.log(data);
@@ -53,7 +59,9 @@ const Home = () => {
         type: "CREATE",
         payload: {
           username: username,
-          room: data.room
+          room: data.room,
+          sprite: sprite,
+          seed: seed
         }
       });
       navigate(`/Room/${data.room}`);
@@ -67,6 +75,7 @@ const Home = () => {
         <div className="rooms">
           <input
             type="text"
+            maxLength="12"
             placeholder="Enter your name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}

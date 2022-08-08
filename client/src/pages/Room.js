@@ -1,24 +1,38 @@
 import React, { useContext, useEffect } from 'react'
 import Chat from '../components/Chat';
 import { AppContext } from "../context/AppContext";
+import { ReactComponent as Crown } from '../images/crown.svg';
 
 import { useNavigate } from "react-router-dom";
+import PlayerList from '../components/PlayerList';
 
 const Room = () => {
 
-    const { username } = useContext(AppContext);
+    const { username, sprite, seed, host } = useContext(AppContext);
     let navigate = useNavigate();
 
-    useEffect(()=> {
-        if(username === "")
+    useEffect(() => {
+        if (username === "")
             navigate("/");
-    },[username, navigate]);
-    
+    }, [username, navigate]);
+
     return (
         <div className='page-room'>
             <div className="cont">
                 <div className="left">
-                    PROFILE PICTURE
+                    <div className="myAvatar">
+                        <img
+                        className='avatar-picture'
+                            src={`https://avatars.dicebear.com/api/${sprite}/${seed}.svg?scale=100`}
+                            alt="Sprite"
+                        />
+                        <span className='username'>
+                            {username}
+                        </span>
+                        {host && <div className="crown">
+                            <Crown className="crownSVG"/>
+                        </div>}
+                    </div>
 
                     <Chat />
                 </div>
@@ -26,7 +40,7 @@ const Room = () => {
                     bbb
                 </div>
                 <div className="players">
-                    aaaa
+                    <PlayerList />
                 </div>
             </div>
         </div>

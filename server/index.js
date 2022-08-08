@@ -24,28 +24,40 @@ io.on("connection", (socket) => {
         console.log("JOIN ROOM")
         let a = {
             name: data.player[0].name,
-            id: socket.id
+            id: socket.id,
+            sprite: data.player[0].sprite,
+            seed: data.player[0].seed,
+            host: false
         }
 
         rooms.filter(a => a.room === data.room)[0].player.push(a)
-        console.log(rooms.filter(a => a.room === data.room)[0])
+        let roomData = rooms.filter(a => a.room === data.room)[0]
+        console.log(roomData)
         socket.join(data.room);
         console.log("user " + socket.id + " join " + data)
         console.log("")
+
+        
+        socket.to(data.room).emit("list_player", roomData)
     });
 
     socket.on("create_room", (data) => {
         console.log("CREATE ROOM")
-        let a = {
+        let roomData = {
             room: data.room,
             player: [{
                 name: data.player[0].name,
-                id: socket.id
+                id: socket.id,
+                sprite: data.player[0].sprite,
+                seed: data.player[0].seed,
+                host: true
             }]
         }
-        rooms = [...rooms, a];
+        rooms = [...rooms, roomData];
         console.log("Creation lobby : " + data.room + " - by player : " + data.player[0].name + " - " + data.player[0].id);
         socket.join(data.room);
+
+        socket.to(data.room).emit("list_player_fetch", roomData)
 
         console.log("Liste des rooms : ")
         rooms.map(a => console.log(a));
@@ -58,6 +70,15 @@ io.on("connection", (socket) => {
         console.log(data.room)
         socket.to(data.room).emit("receive_message", data)
         console.log(data)
+    });
+
+    socket.on("get_player_list",(data) =>{
+        console.log("")
+        console.log("")
+        console.log(data)
+        console.log("Liste des joueurs de la room:")
+        console.log(rooms.filter(a => a.room === data))
+        socket.emit("list_player", rooms.filter(a => a.room === data)[0])
     });
 
 

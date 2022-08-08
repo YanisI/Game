@@ -22,7 +22,7 @@ const reducer = (state, action) => {
                 username: action.payload.username, 
                 room : action.payload.room, 
                 host: true, 
-                sprit : action.payload.sprite, 
+                sprite : action.payload.sprite, 
                 seed : action.payload.seed
             }
         case "JOIN":
@@ -31,7 +31,8 @@ const reducer = (state, action) => {
                 username: action.payload.username, 
                 room : action.payload.room, 
                 sprite : action.payload.sprite, 
-                seed : action.payload.seed
+                seed : action.payload.seed,
+                host: false
             }
         default: return state;
     }
