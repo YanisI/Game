@@ -22,7 +22,7 @@ const Home = () => {
           id: socket.id,
           sprite: sprite,
           seed: seed,
-          host : false
+          host: false
         }]
       }
       socket.emit("join_room", data);
@@ -71,7 +71,9 @@ const Home = () => {
   return (
     <div className="home-page">
       <div className="home-container">
-        <p className="title">CultGames</p>
+        <p className="title">
+          CultGames
+        </p>
         <div className="rooms">
           <input
             type="text"

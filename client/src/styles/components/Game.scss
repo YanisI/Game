@@ -1,0 +1,43 @@
+.game {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(225deg, #d62020, #2938c2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid black;
+    position: relative;
+
+    .title {
+        font-size: 180px;
+    }
+
+    .selectQ{
+        width: 280px;
+        height: 40px;
+        font-size: 22px;
+        text-align: center;
+        border-radius: 20px;
+    }
+
+    .param {
+        position: absolute;
+        top: 10px;
+        left: 95%;
+    }
+    
+
+    .play-btn {
+        width: 280px;
+        height: 60px;
+        border-radius: 10px;
+        background-color: rgb(42, 189, 42);
+        transition: 0.3s;
+
+        &:hover {
+            background-color: rgb(6, 143, 6);
+        }
+    }
+}

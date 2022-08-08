@@ -5,6 +5,7 @@ import { ReactComponent as Crown } from '../images/crown.svg';
 
 import { useNavigate } from "react-router-dom";
 import PlayerList from '../components/PlayerList';
+import Game from '../components/Game';
 
 const Room = () => {
 
@@ -37,7 +38,7 @@ const Room = () => {
                     <Chat />
                 </div>
                 <div className="jeu">
-                    bbb
+                    <Game />
                 </div>
                 <div className="players">
                     <PlayerList />
