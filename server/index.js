@@ -22,23 +22,31 @@ io.on("connection", (socket) => {
 
     socket.on("join_room", (data) => {
         console.log("JOIN ROOM")
-        let a = {
-            name: data.player[0].name,
-            id: socket.id,
-            sprite: data.player[0].sprite,
-            seed: data.player[0].seed,
-            host: false
+        if(rooms.filter(a => a.room === data.room).length === 1){
+            let a = {
+                name: data.player[0].name,
+                id: socket.id,
+                sprite: data.player[0].sprite,
+                seed: data.player[0].seed,
+                host: false
+            }
+    
+            rooms.filter(a => a.room === data.room)[0].player.push(a)
+            let roomData = rooms.filter(a => a.room === data.room)[0]
+            console.log(roomData)
+            socket.join(data.room);
+            
+            socket.emit("succ_join_message", data.room)
+            console.log("user " + socket.id + " join " + data)
+            console.log("")
+    
+            
+            socket.to(data.room).emit("list_player", roomData)
+        }
+        else{
+            socket.emit("err_message", ("The Room doesn't exist"))
         }
 
-        rooms.filter(a => a.room === data.room)[0].player.push(a)
-        let roomData = rooms.filter(a => a.room === data.room)[0]
-        console.log(roomData)
-        socket.join(data.room);
-        console.log("user " + socket.id + " join " + data)
-        console.log("")
-
-        
-        socket.to(data.room).emit("list_player", roomData)
     });
 
     socket.on("create_room", (data) => {
@@ -54,6 +62,8 @@ io.on("connection", (socket) => {
             }]
         }
         rooms = [...rooms, roomData];
+        
+        socket.emit("succ_create_message", data.room)
         console.log("Creation lobby : " + data.room + " - by player : " + data.player[0].name + " - " + data.player[0].id);
         socket.join(data.room);
 

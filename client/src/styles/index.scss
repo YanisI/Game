@@ -11,12 +11,15 @@
 @import "./components/Avatar";
 @import "./components/PlayerList";
 @import "./components/Game";
+@import "./components/ShowNotification";
+
 
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 
