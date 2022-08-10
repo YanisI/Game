@@ -10,6 +10,15 @@
         display: flex;
         justify-content: space-between;
 
+        .leave{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
         .left {
             display: flex;
             flex-direction: column;

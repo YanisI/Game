@@ -9,7 +9,7 @@ import Game from '../components/Game';
 
 const Room = () => {
 
-    const { username, sprite, seed, host } = useContext(AppContext);
+    const { socket, username, sprite, seed, host, dispatch } = useContext(AppContext);
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -17,9 +17,34 @@ const Room = () => {
             navigate("/");
     }, [username, navigate]);
 
+    const leaveLobby = async () => {
+        console.log("On quitte")
+        let data = {
+            id: socket.id,
+            room: socket.room
+        }
+        socket.emit("leave_room", data);
+        
+        navigate("/");
+        await dispatch({
+            type: "LEAVING_ROOM",
+            payload: {
+              username: "",
+              room: "",
+              sprite: sprite,
+              seed: seed,
+              host: false
+            }
+          });
+    }
+
     return (
         <div className='page-room'>
             <div className="cont">
+                <div className="leave"
+                    onClick={leaveLobby}>
+                    leave
+                </div>
                 <div className="left">
                     <div className="myAvatar">
                         <img

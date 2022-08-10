@@ -4,15 +4,30 @@ import { ReactComponent as Crown } from '../images/crown.svg';
 
 const PlayerList = () => {
 
-    const { socket, room } = useContext(AppContext);
+    const { socket, room, host, dispatch } = useContext(AppContext);
 
     const [listPlayer, setListPlayer] = useState([])
+
+    console.log("Host ?")
+    console.log(host)
 
 
     useEffect(() => {
         socket.on("list_player", (data) => {
+
+
             console.log("on recoit la liste")
             console.log(data);
+            console.log()
+            let h = data.player.filter(a=> a.id === socket.id)[0].host;
+            if( h !== host){
+                dispatch({
+                    type: "UPDATE_HOST",
+                    payload: {
+                      host: true
+                    }
+                  });
+            }
             setListPlayer(data.player)
         })
 

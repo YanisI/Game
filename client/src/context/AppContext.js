@@ -34,6 +34,20 @@ const reducer = (state, action) => {
                 seed : action.payload.seed,
                 host: false
             }
+            case "LEAVING_ROOM":
+            return {
+                ...state, 
+                username: "", 
+                room : "", 
+                sprite : "avataaars", 
+                seed : 1000,
+                host: false
+            }
+            case "UPDATE_HOST":
+                return {
+                    ...state, 
+                    host: action.payload.host
+                }
         default: return state;
     }
 

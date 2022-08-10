@@ -17,6 +17,38 @@ const io = new Server(server, {
 
 let rooms = [];
 
+const leaveRoom= (id, socket) => {
+    let tmp = rooms.map(room => {
+        let r = room.room;
+        return room.player.map(player => ({room: r, id: player.id}))
+    })
+    .flat()
+    .filter(a => a.id === id)
+
+    if(tmp.length > 0 ){
+        let t = rooms.filter(room => room.room === tmp[0].room )[0].player.filter(a => a.id !==id); //[0].player.filter(a => a.id !== data.id)
+        console.log("ICI T : ")
+        console.log(t)
+        if(t.length > 0 ){
+            if(t[0].host !== true){ // on verifie qu'il y a toujours un host
+                t[0].host = true;
+            }
+            let index = rooms.findIndex(obj => obj.room === tmp[0].room)
+            rooms[index].player = t
+            socket.to(tmp[0].room).emit("list_player", rooms.filter(a => a.room === tmp[0].room)[0])
+        }
+        else {
+            console.log("Previous room : ")
+            console.log(rooms)
+            rooms = rooms.filter(room => room.room !== tmp[0].room)
+            console.log("room now : ")
+            console.log(rooms)
+        }
+    }else {
+        console.log("User didn't join a room")
+    }
+}
+
 io.on("connection", (socket) => {
     console.log("User connected " + socket.id);
 
@@ -91,54 +123,17 @@ io.on("connection", (socket) => {
         socket.emit("list_player", rooms.filter(a => a.room === data)[0])
     });
 
+    socket.on("leave_room",(data) =>{
+        leaveRoom(data.id, socket)
+    })
+
 
     socket.on("disconnect", () => {
         console.log("User disconnected " + socket.id);
-        let tmp = rooms.map(room => {
-            let r = room.room;
-            return room.player.map(player => ({room: r, id: player.id}))
-        })
-        .flat()
-        .filter(a => a.id === socket.id)
-
-
-        if(tmp.length > 0 ){
-            console.log("tmp : ")
-            console.log(tmp)
-            let t = rooms.filter(room => room.room === tmp[0].room )
-            console.log("T :")
-            console.log(t[0])
-            let newP = t[0].player.filter(a => a.id !== socket.id)
-            console.log("")
-            console.log("")
-            console.log(newP)
-            if(newP.length > 0 ){
-                if(newP[0].host !== true){ // on verifie qu'il y a toujours un host
-                    newP[0].host = true;
-                }
-                console.log("on map pour voir si on a un host et sup le joueur + message au reste des joueurs avec la nouvelle liste")
-                let index = rooms.findIndex(obj => obj.room === tmp[0].room)
-                rooms[index].player = newP
-            }
-            else {
-                rooms = rooms.filter(room => room.room !== tmp[0].room)
-            }
-        }else {
-            console.log("user didn't join a room")
-        }
-        
+        leaveRoom(socket.id, socket)        
     });
 
-     /*   let roomData = {
-            room: data.room,
-            player: [{
-                name: data.player[0].name,
-                id: socket.id,
-                sprite: data.player[0].sprite,
-                seed: data.player[0].seed,
-                host: true
-            }]
-        }*/
+   
 
 })
 
