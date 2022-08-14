@@ -14,12 +14,10 @@
         font-size: 180px;
     }
 
-    .selectQ{
-        width: 280px;
-        height: 40px;
-        font-size: 22px;
-        text-align: center;
-        border-radius: 20px;
+    .param{
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     .param {

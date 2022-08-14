@@ -1,30 +1,41 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AppContext } from "../context/AppContext";
+import Param from './Param';
 
 const Game = () => {
 
     
     const { username, sprite, seed, host } = useContext(AppContext);
+
+    const [params, setParams] = useState(false)
+
+    const handleParams = () => {
+        setParams(!params);
+    }
+
+    const handleValidate = () => {
+        setParams(!params);
+    }
     return (
         <div className="game">
             <div className="title">
                 CultGames
             </div>
             {/* 
-            <select className='selectQ' name="cars">
-                <option value="volvo">10</option>
-                <option value="saab">20</option>
-                <option value="fiat" selected>30</option>
-                <option value="audi">Audi</option>
-            </select>*/}
+            */}
             <button className='play-btn'>
                 Jouer
             </button>
             {  host &&
-                <div className="param">
+                <div 
+                className="param"
+                onClick={handleParams}
+                >
                     params
                 </div>
             }
+            
+            {params && <Param handleValidate={handleValidate}/>}
         </div>
     )
 }
